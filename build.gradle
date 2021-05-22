@@ -1,6 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.5.0"
+    ext {
+        kotlin_version = "1.5.0"
+        ktor_version = "1.5.4"
+        kotlinx_serialization_version = "1.2.1"
+        koin_version= "3.0.2"
+        lifecycle_version = "2.3.1"
+        nav_version = "2.3.5"
+        coroutines_version = "1.4.1"
+        multidex_version = "2.0.1"
+    }
     repositories {
         google()
         mavenCentral()
@@ -8,9 +17,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
     }
 }
 
