@@ -1,11 +1,12 @@
-package com.ccakir.androidplayground.arch
+package com.ccakir.androidplayground.base
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ccakir.androidplayground.arch.UIEvent
+import com.ccakir.androidplayground.arch.UIModel
+import com.ccakir.androidplayground.arch.UIState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<State : UIState, Event : UIEvent>(initialState: State) : ViewModel(),
     UIModel<State, Event> {

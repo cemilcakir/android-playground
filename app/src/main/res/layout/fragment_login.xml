@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.login.LoginFragment">
+    tools:context=".features.login.ui.LoginFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilUsername"
@@ -28,5 +28,12 @@
         android:text="Login"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.ccakir.androidplayground.arch
+package com.ccakir.androidplayground.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.ccakir.androidplayground.arch.UIEvent
+import com.ccakir.androidplayground.arch.UIState
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
