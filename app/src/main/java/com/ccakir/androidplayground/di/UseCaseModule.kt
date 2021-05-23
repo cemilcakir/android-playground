@@ -12,6 +12,6 @@ val useCaseModule = module {
     }
 
     factory<ILoginUseCase> {
-        LoginUseCaseImpl(get(), get())
+        LoginUseCaseImpl(get(), get(), get())
     }
 }

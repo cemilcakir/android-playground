@@ -5,6 +5,7 @@ import com.ccakir.androidplayground.base.BaseViewModel
 import com.ccakir.androidplayground.features.login.domain.ILoginUseCase
 import com.ccakir.androidplayground.features.login.domain.LoginEvent
 import com.ccakir.androidplayground.features.login.domain.LoginState
+import com.ccakir.androidplayground.features.login.domain.LoginStatus
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginUseCase: ILoginUseCase) :
@@ -25,8 +26,13 @@ class LoginViewModel(private val loginUseCase: ILoginUseCase) :
         viewModelScope.launch {
             setState(state.value.copy(inProgress = true))
 
-            val loginStatus = loginUseCase.login(state.value.username)
-            state.value.loginStatus.send(loginStatus)
+            if (state.value.username.isNotEmpty()) {
+                val loginStatus = loginUseCase.login(state.value.username)
+                state.value.loginStatus.send(loginStatus)
+            } else
+                state.value.loginStatus.send(
+                    LoginStatus.Error("invalid username")
+                )
 
             setState(state.value.copy(inProgress = false))
         }
