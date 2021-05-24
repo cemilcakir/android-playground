@@ -19,9 +19,15 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.ccakir.androidplayground.features.profile.ProfileFragment"
+        android:name="com.ccakir.androidplayground.features.profile.ui.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/main_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/repositoryListFragment"

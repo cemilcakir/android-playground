@@ -37,4 +37,12 @@ class AuthManagerImpl(
             }
         }
     }
+
+    override suspend fun signOut() {
+        withContext(dispatcherProvider.provideIO()) {
+            context.dataStore.edit { auth ->
+                auth[USERNAME] = ""
+            }
+        }
+    }
 }
