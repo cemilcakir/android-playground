@@ -66,4 +66,6 @@ dependencies {
 
     implementation "io.insert-koin:koin-android:$koin_version"
     implementation "io.insert-koin:koin-ktor:$koin_version"
+
+    implementation "androidx.datastore:datastore-preferences:$datastore_version"
 }
