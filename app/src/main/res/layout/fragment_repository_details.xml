@@ -6,6 +6,7 @@
     tools:context=".features.repository.details.RepositoryDetailsFragment">
 
     <TextView
+        android:id="@+id/txtRepositoryName"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Repository Details" />

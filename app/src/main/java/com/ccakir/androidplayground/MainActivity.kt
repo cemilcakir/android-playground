@@ -5,13 +5,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.ccakir.androidplayground.auth.IAuthManager
 import com.ccakir.androidplayground.databinding.ActivityMainBinding
-import com.ccakir.androidplayground.features.login.ui.LoginFragmentDirections
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -48,7 +46,9 @@ class MainActivity : AppCompatActivity() {
         addDestinationListener()
 
         lifecycleScope.launchWhenCreated {
-            navigateToRepositoryListIfLoggedIn()
+            val navGraph = navController.graph
+            navGraph.startDestination = getStartDestination()
+            navController.graph = navGraph
         }
     }
 
@@ -62,9 +62,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun navigateToRepositoryListIfLoggedIn() {
-        if (!authManager.getUsername().isNullOrBlank()) {
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToRepositoryListFragment())
-        }
+    private suspend fun getStartDestination(): Int {
+        return if (!authManager.getUsername().isNullOrBlank()) {
+            R.id.repositoryListFragment
+        } else
+            R.id.loginFragment
     }
 }

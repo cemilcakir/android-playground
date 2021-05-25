@@ -8,6 +8,9 @@ import com.ccakir.androidplayground.features.profile.data.ProfileGetUsernameUseC
 import com.ccakir.androidplayground.features.profile.data.ProfileSignOutUseCaseImpl
 import com.ccakir.androidplayground.features.profile.domain.IProfileGetUsernameUseCase
 import com.ccakir.androidplayground.features.profile.domain.IProfileSignOutUseCase
+import com.ccakir.androidplayground.features.repository.list.data.GetRepositoryListUseCaseImpl
+import com.ccakir.androidplayground.features.repository.list.data.RepositoryNetworkEntityMapper
+import com.ccakir.androidplayground.features.repository.list.domain.IGetRepositoryListUseCase
 import org.koin.dsl.module
 
 val useCaseModule = module {
@@ -25,5 +28,13 @@ val useCaseModule = module {
 
     factory<IProfileSignOutUseCase> {
         ProfileSignOutUseCaseImpl(get())
+    }
+
+    factory {
+        RepositoryNetworkEntityMapper()
+    }
+
+    factory<IGetRepositoryListUseCase> {
+        GetRepositoryListUseCaseImpl(get(), get(), get(), get())
     }
 }

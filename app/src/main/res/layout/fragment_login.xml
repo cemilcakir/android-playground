@@ -32,7 +32,7 @@
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/linear_progress_indicator_height"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent" />
 
