@@ -47,7 +47,7 @@ object KtorClient {
         }
 
         install(DefaultRequest) {
-            host = "api.github.com/users"
+            host = "api.github.com"
             url.protocol = URLProtocol.HTTPS
             header(HttpHeaders.ContentType, ContentType.Application.Json)
         }

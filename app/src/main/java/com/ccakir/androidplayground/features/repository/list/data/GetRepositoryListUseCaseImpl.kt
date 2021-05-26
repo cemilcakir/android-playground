@@ -19,7 +19,7 @@ class GetRepositoryListUseCaseImpl(
         val username = authManager.getUsername()!!
 
         val repositoryNetworkEntityList = withContext(dispatcherProvider.provideIO()) {
-            networkClient.get<List<RepositoryNetworkEntity>>("$username/repos")
+            networkClient.get<List<RepositoryNetworkEntity>>("users/$username/repos")
         }
 
         return repositoryNetworkEntityList.map {

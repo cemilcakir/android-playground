@@ -8,6 +8,9 @@ import com.ccakir.androidplayground.features.profile.data.ProfileGetUsernameUseC
 import com.ccakir.androidplayground.features.profile.data.ProfileSignOutUseCaseImpl
 import com.ccakir.androidplayground.features.profile.domain.IProfileGetUsernameUseCase
 import com.ccakir.androidplayground.features.profile.domain.IProfileSignOutUseCase
+import com.ccakir.androidplayground.features.repository.details.data.CommitNetworkEntityMapper
+import com.ccakir.androidplayground.features.repository.details.data.GetCommitsUseCase
+import com.ccakir.androidplayground.features.repository.details.domain.IGetCommitsUseCase
 import com.ccakir.androidplayground.features.repository.list.data.GetRepositoryListUseCaseImpl
 import com.ccakir.androidplayground.features.repository.list.data.RepositoryNetworkEntityMapper
 import com.ccakir.androidplayground.features.repository.list.domain.IGetRepositoryListUseCase
@@ -36,5 +39,13 @@ val useCaseModule = module {
 
     factory<IGetRepositoryListUseCase> {
         GetRepositoryListUseCaseImpl(get(), get(), get(), get())
+    }
+
+    factory {
+        CommitNetworkEntityMapper()
+    }
+
+    factory<IGetCommitsUseCase> { params ->
+        GetCommitsUseCase(get(), get(), get(), get())
     }
 }

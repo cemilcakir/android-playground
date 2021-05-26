@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun addDestinationListener() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.loginFragment) {
+            if (destination.id == R.id.loginFragment || destination.id == R.id.repositoryDetailsFragment) {
                 binding.bottomNav.visibility = View.GONE
             } else {
                 binding.bottomNav.visibility = View.VISIBLE

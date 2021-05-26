@@ -20,7 +20,7 @@ class LoginUseCaseImpl(
     override suspend fun login(username: String): LoginStatus {
         return try {
             withContext(dispatcherProvider.provideIO()) {
-                networkClient.get<HttpResponse>(username)
+                networkClient.get<HttpResponse>("users/$username")
                 authManager.setUsername(username)
             }
             LoginStatus.Success

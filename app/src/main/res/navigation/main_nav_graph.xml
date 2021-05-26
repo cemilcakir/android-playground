@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/repositoryDetailsFragment"
-        android:name="com.ccakir.androidplayground.features.repository.details.RepositoryDetailsFragment"
+        android:name="com.ccakir.androidplayground.features.repository.details.ui.RepositoryDetailsFragment"
         android:label="@string/details"
         tools:layout="@layout/fragment_repository_details" >
         <argument
