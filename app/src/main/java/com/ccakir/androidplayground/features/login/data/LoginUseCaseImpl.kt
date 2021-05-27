@@ -9,6 +9,7 @@ import io.ktor.client.features.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class LoginUseCaseImpl(
@@ -17,18 +18,24 @@ class LoginUseCaseImpl(
     private val authManager: IAuthManager
 ) : ILoginUseCase {
 
-    override suspend fun login(username: String): LoginStatus {
-        return try {
+    override fun login(username: String) = flow {
+        emit(LoginStatus.Loading(true))
+
+        try {
             withContext(dispatcherProvider.provideIO()) {
                 networkClient.get<HttpResponse>("users/$username")
                 authManager.setUsername(username)
             }
-            LoginStatus.Success
+            emit(LoginStatus.Success)
         } catch (e: ClientRequestException) {
             if (e.response.status == HttpStatusCode.NotFound)
-                LoginStatus.Error("$username not found")
+                emit(LoginStatus.Error("$username not found"))
             else
-                LoginStatus.Error("Unexpected error")
+                emit(LoginStatus.Error("Unexpected error"))
+        } catch (e: Exception) {
+            emit(LoginStatus.Error("Unexpected error ${e.message}"))
+        } finally {
+            emit(LoginStatus.Loading(false))
         }
     }
 }

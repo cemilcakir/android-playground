@@ -6,5 +6,5 @@ import kotlinx.coroutines.channels.Channel
 data class LoginState(
     val username: String = "",
     val inProgress: Boolean = false,
-    val loginStatus: Channel<LoginStatus> = Channel(Channel.UNLIMITED)
+    val effects: Channel<LoginEffect> = Channel(Channel.UNLIMITED)
 ) : UIState

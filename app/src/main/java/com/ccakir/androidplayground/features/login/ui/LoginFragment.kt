@@ -3,13 +3,13 @@ package com.ccakir.androidplayground.features.login.ui
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.ccakir.androidplayground.base.BaseFragment
+import com.ccakir.androidplayground.common.navigateTo
 import com.ccakir.androidplayground.common.showToast
 import com.ccakir.androidplayground.databinding.FragmentLoginBinding
+import com.ccakir.androidplayground.features.login.domain.LoginEffect
 import com.ccakir.androidplayground.features.login.domain.LoginEvent
 import com.ccakir.androidplayground.features.login.domain.LoginState
-import com.ccakir.androidplayground.features.login.domain.LoginStatus
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -43,20 +43,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginState, LoginEvent,
 
         binding.progressIndicator.isVisible = state.inProgress
 
-        state.loginStatus.consumeAsFlow().onEach { loginStatus ->
-            when (loginStatus) {
-                is LoginStatus.Error -> showToast(loginStatus.message)
-                is LoginStatus.Success -> onLoginSuccess()
+        state.effects.consumeAsFlow().onEach { effect ->
+            when (effect) {
+                LoginEffect.NavigateToRepositoryList -> onLoginSuccess()
+                is LoginEffect.ShowToast -> showToast(effect.message)
             }
         }.launchIn(lifecycleScope)
     }
 
     private fun onLoginSuccess() {
         showToast("Login success")
-
-        findNavController().navigate(
-            LoginFragmentDirections
-                .actionLoginFragmentToRepositoryListFragment()
-        )
+        navigateTo(LoginFragmentDirections.actionLoginFragmentToRepositoryListFragment())
     }
 }

@@ -2,11 +2,9 @@ package com.ccakir.androidplayground.features.login.ui
 
 import androidx.lifecycle.viewModelScope
 import com.ccakir.androidplayground.base.BaseViewModel
-import com.ccakir.androidplayground.features.login.domain.ILoginUseCase
-import com.ccakir.androidplayground.features.login.domain.LoginEvent
-import com.ccakir.androidplayground.features.login.domain.LoginState
-import com.ccakir.androidplayground.features.login.domain.LoginStatus
-import kotlinx.coroutines.launch
+import com.ccakir.androidplayground.features.login.domain.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class LoginViewModel(private val loginUseCase: ILoginUseCase) :
     BaseViewModel<LoginState, LoginEvent>(LoginState()) {
@@ -23,19 +21,15 @@ class LoginViewModel(private val loginUseCase: ILoginUseCase) :
     }
 
     private fun login() {
-        viewModelScope.launch {
-            setState(state.value.copy(inProgress = true))
-
-            if (state.value.username.isNotEmpty()) {
-                val loginStatus = loginUseCase.login(state.value.username)
-                state.value.loginStatus.send(loginStatus)
-            } else
-                state.value.loginStatus.send(
-                    LoginStatus.Error("invalid username")
-                )
-
-            setState(state.value.copy(inProgress = false))
-        }
+        loginUseCase.login(state.value.username).onEach { loginStatus ->
+            when (loginStatus) {
+                is LoginStatus.Error ->
+                    state.value.effects.send(LoginEffect.ShowToast(loginStatus.message))
+                is LoginStatus.Loading ->
+                    setState(state.value.copy(inProgress = loginStatus.isLoading))
+                LoginStatus.Success ->
+                    state.value.effects.send(LoginEffect.NavigateToRepositoryList)
+            }
+        }.launchIn(viewModelScope)
     }
-
 }

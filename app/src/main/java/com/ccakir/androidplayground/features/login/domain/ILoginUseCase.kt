@@ -1,6 +1,7 @@
 package com.ccakir.androidplayground.features.login.domain
 
-interface ILoginUseCase {
+import kotlinx.coroutines.flow.Flow
 
-    suspend fun login(username: String): LoginStatus
+interface ILoginUseCase {
+    fun login(username: String): Flow<LoginStatus>
 }
