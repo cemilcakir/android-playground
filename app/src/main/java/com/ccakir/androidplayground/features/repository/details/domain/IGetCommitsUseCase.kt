@@ -1,6 +1,8 @@
 package com.ccakir.androidplayground.features.repository.details.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface IGetCommitsUseCase {
 
-    suspend fun getCommits(repositoryName: String): List<CommitDomainModel>
+    fun getCommits(repositoryName: String): Flow<GetCommitsStatus>
 }

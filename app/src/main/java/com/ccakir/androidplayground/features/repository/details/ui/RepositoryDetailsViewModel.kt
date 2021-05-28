@@ -2,28 +2,32 @@ package com.ccakir.androidplayground.features.repository.details.ui
 
 import androidx.lifecycle.viewModelScope
 import com.ccakir.androidplayground.base.BaseViewModel
-import com.ccakir.androidplayground.features.repository.details.domain.IGetCommitsUseCase
-import com.ccakir.androidplayground.features.repository.details.domain.RepositoryDetailsEvent
-import com.ccakir.androidplayground.features.repository.details.domain.RepositoryDetailsState
+import com.ccakir.androidplayground.features.repository.details.domain.*
 import com.ccakir.androidplayground.features.repository.list.domain.RepositoryDomainModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class RepositoryDetailsViewModel(
-    private val repository: RepositoryDomainModel,
-    private val getCommitsUseCase: IGetCommitsUseCase
+    repository: RepositoryDomainModel,
+    getCommitsUseCase: IGetCommitsUseCase
 ) : BaseViewModel<RepositoryDetailsState, RepositoryDetailsEvent>(
     RepositoryDetailsState()
 ) {
 
     init {
-        viewModelScope.launch {
-            setState(state.value.copy(inProgress = true))
-
-            val commits = getCommitsUseCase.getCommits(repository.name)
-            setState(
-                state.value.copy(commits = commits, inProgress = false)
-            )
-        }
+        getCommitsUseCase.getCommits(repository.name).onEach { getCommitsStatus ->
+            when (getCommitsStatus) {
+                is GetCommitsStatus.Error -> {
+                    state.value.effects.send(RepositoryDetailsEffect.ShowToast(getCommitsStatus.message))
+                }
+                is GetCommitsStatus.Loading -> {
+                    setState(state.value.copy(inProgress = getCommitsStatus.isLoading))
+                }
+                is GetCommitsStatus.Success -> {
+                    setState(state.value.copy(commits = getCommitsStatus.commits))
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun onEvent(event: RepositoryDetailsEvent) {

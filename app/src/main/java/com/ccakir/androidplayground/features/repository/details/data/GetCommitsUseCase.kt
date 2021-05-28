@@ -2,10 +2,11 @@ package com.ccakir.androidplayground.features.repository.details.data
 
 import com.ccakir.androidplayground.auth.IAuthManager
 import com.ccakir.androidplayground.common.IDispatcherProvider
-import com.ccakir.androidplayground.features.repository.details.domain.CommitDomainModel
+import com.ccakir.androidplayground.features.repository.details.domain.GetCommitsStatus
 import com.ccakir.androidplayground.features.repository.details.domain.IGetCommitsUseCase
 import io.ktor.client.*
 import io.ktor.client.request.*
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class GetCommitsUseCase(
@@ -15,15 +16,26 @@ class GetCommitsUseCase(
     private val entityMapper: CommitNetworkEntityMapper
 ) : IGetCommitsUseCase {
 
-    override suspend fun getCommits(repositoryName: String): List<CommitDomainModel> {
-        val username = authManager.getUsername()!!
+    override fun getCommits(repositoryName: String) = flow {
+        emit(GetCommitsStatus.Loading(true))
 
-        val commits: List<CommitNetworkEntity> = withContext(dispatcherProvider.provideIO()) {
-            networkClient.get("repos/$username/$repositoryName/commits")
-        }
+        try {
+            val username = authManager.getUsername()!!
 
-        return commits.map {
-            entityMapper.mapFromEntity(it)
+            val commitNetworkEntityList: List<CommitNetworkEntity> =
+                withContext(dispatcherProvider.provideIO()) {
+                    networkClient.get("repos/$username/$repositoryName/commits")
+                }
+
+            val commits = commitNetworkEntityList.map {
+                entityMapper.mapFromEntity(it)
+            }
+
+            emit(GetCommitsStatus.Success(commits))
+        } catch (e: Exception) {
+            emit(GetCommitsStatus.Error("Unexpected error occurred: ${e.message}"))
+        } finally {
+            emit(GetCommitsStatus.Loading(false))
         }
     }
 }

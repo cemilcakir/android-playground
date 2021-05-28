@@ -31,7 +31,7 @@ class LoginUseCaseImpl(
             if (e.response.status == HttpStatusCode.NotFound)
                 emit(LoginStatus.Error("$username not found"))
             else
-                emit(LoginStatus.Error("Unexpected error"))
+                emit(LoginStatus.Error("Unexpected error ${e.message}"))
         } catch (e: Exception) {
             emit(LoginStatus.Error("Unexpected error ${e.message}"))
         } finally {

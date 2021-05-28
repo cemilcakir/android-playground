@@ -2,9 +2,11 @@ package com.ccakir.androidplayground.features.repository.list.ui
 
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.ccakir.androidplayground.base.BaseFragment
+import com.ccakir.androidplayground.common.navigateTo
+import com.ccakir.androidplayground.common.showToast
 import com.ccakir.androidplayground.databinding.FragmentRepositoryListBinding
+import com.ccakir.androidplayground.features.repository.list.domain.RepositoryListEffect
 import com.ccakir.androidplayground.features.repository.list.domain.RepositoryListEvent
 import com.ccakir.androidplayground.features.repository.list.domain.RepositoryListState
 import kotlinx.coroutines.flow.consumeAsFlow
@@ -31,15 +33,17 @@ class RepositoryListFragment :
     }
 
     override fun bindEvents() {
-        //
     }
 
     override fun renderState(state: RepositoryListState) {
         binding.progressIndicator.isVisible = state.inProgress
         adapter.submitList(state.repositories)
 
-        state.navigation.consumeAsFlow().onEach {
-            findNavController().navigate(it)
+        state.effects.consumeAsFlow().onEach { effect ->
+            when (effect) {
+                is RepositoryListEffect.NavigateTo -> navigateTo(effect.direction)
+                is RepositoryListEffect.ShowToast -> showToast(effect.message)
+            }
         }.launchIn(lifecycleScope)
     }
 

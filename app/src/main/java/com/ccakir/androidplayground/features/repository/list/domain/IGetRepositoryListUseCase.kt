@@ -1,6 +1,8 @@
 package com.ccakir.androidplayground.features.repository.list.domain
 
+import kotlinx.coroutines.flow.Flow
+
 interface IGetRepositoryListUseCase {
 
-    suspend fun getRepositoryList(): List<RepositoryDomainModel>
+    fun getRepositoryList(): Flow<GetRepositoryListStatus>
 }

@@ -2,29 +2,37 @@ package com.ccakir.androidplayground.features.repository.list.ui
 
 import androidx.lifecycle.viewModelScope
 import com.ccakir.androidplayground.base.BaseViewModel
-import com.ccakir.androidplayground.features.repository.list.domain.IGetRepositoryListUseCase
-import com.ccakir.androidplayground.features.repository.list.domain.RepositoryDomainModel
-import com.ccakir.androidplayground.features.repository.list.domain.RepositoryListEvent
-import com.ccakir.androidplayground.features.repository.list.domain.RepositoryListState
+import com.ccakir.androidplayground.features.repository.list.domain.*
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class RepositoryListViewModel(
-    private val getRepositoryListUseCase: IGetRepositoryListUseCase
+    getRepositoryListUseCase: IGetRepositoryListUseCase
 ) : BaseViewModel<RepositoryListState, RepositoryListEvent>(
     RepositoryListState()
 ) {
 
     init {
-        viewModelScope.launch {
-            setState(
-                state.value.copy(inProgress = true)
-            )
-
-            val repositoryList = getRepositoryListUseCase.getRepositoryList()
-            setState(
-                state.value.copy(repositories = repositoryList, inProgress = false)
-            )
-        }
+        getRepositoryListUseCase.getRepositoryList().onEach { getRepositoryListStatus ->
+            when (getRepositoryListStatus) {
+                is GetRepositoryListStatus.Error -> {
+                    state.value.effects.send(
+                        RepositoryListEffect.ShowToast(
+                            getRepositoryListStatus.message
+                        )
+                    )
+                }
+                is GetRepositoryListStatus.Loading -> {
+                    setState(state.value.copy(inProgress = getRepositoryListStatus.isLoading))
+                }
+                is GetRepositoryListStatus.Success -> {
+                    setState(
+                        state.value.copy(repositories = getRepositoryListStatus.repositoryList)
+                    )
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun onEvent(event: RepositoryListEvent) {
@@ -35,9 +43,11 @@ class RepositoryListViewModel(
 
     private fun onRepositoryClick(repository: RepositoryDomainModel) {
         viewModelScope.launch {
-            state.value.navigation.send(
-                RepositoryListFragmentDirections.actionRepositoryListFragmentToRepositoryDetailsFragment(
-                    repository
+            state.value.effects.send(
+                RepositoryListEffect.NavigateTo(
+                    RepositoryListFragmentDirections.actionRepositoryListFragmentToRepositoryDetailsFragment(
+                        repository
+                    )
                 )
             )
         }
