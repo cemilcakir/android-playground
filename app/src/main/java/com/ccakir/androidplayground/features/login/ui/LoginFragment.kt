@@ -2,6 +2,7 @@ package com.ccakir.androidplayground.features.login.ui
 
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ccakir.androidplayground.base.BaseFragment
 import com.ccakir.androidplayground.common.navigateTo
@@ -10,14 +11,15 @@ import com.ccakir.androidplayground.databinding.FragmentLoginBinding
 import com.ccakir.androidplayground.features.login.domain.LoginEffect
 import com.ccakir.androidplayground.features.login.domain.LoginEvent
 import com.ccakir.androidplayground.features.login.domain.LoginState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.koin.android.ext.android.inject
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding, LoginState, LoginEvent, LoginViewModel>() {
 
-    override val viewModel: LoginViewModel by inject()
+    override val viewModel: LoginViewModel by viewModels()
 
     override fun initBinding() {
         binding = FragmentLoginBinding.inflate(layoutInflater)

@@ -1,5 +1,5 @@
 package com.ccakir.androidplayground.features.profile.domain
 
-interface IProfileGetUsernameUseCase {
+interface ProfileGetUsernameUseCase {
     suspend fun getUsername(): String
 }

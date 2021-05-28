@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.ccakir.androidplayground.common.IDispatcherProvider
+import com.ccakir.androidplayground.common.DispatcherProvider
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -15,8 +15,8 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 class AuthManagerImpl(
     private val context: Context,
-    private val dispatcherProvider: IDispatcherProvider
-) : IAuthManager {
+    private val dispatcherProvider: DispatcherProvider
+) : AuthManager {
 
     companion object {
         private val USERNAME = stringPreferencesKey("USERNAME")

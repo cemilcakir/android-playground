@@ -3,7 +3,7 @@ package com.ccakir.androidplayground.common
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-class DispatcherProviderImpl : IDispatcherProvider {
+class DispatcherProviderImpl : DispatcherProvider {
     override fun provideMain(): CoroutineDispatcher {
         return Dispatchers.Main
     }

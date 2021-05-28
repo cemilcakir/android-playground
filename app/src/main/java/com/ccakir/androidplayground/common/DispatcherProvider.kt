@@ -2,7 +2,7 @@ package com.ccakir.androidplayground.common
 
 import kotlinx.coroutines.CoroutineDispatcher
 
-interface IDispatcherProvider {
+interface DispatcherProvider {
     fun provideMain(): CoroutineDispatcher
     fun provideIO(): CoroutineDispatcher
 }

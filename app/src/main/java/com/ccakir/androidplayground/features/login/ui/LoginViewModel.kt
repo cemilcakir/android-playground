@@ -3,10 +3,13 @@ package com.ccakir.androidplayground.features.login.ui
 import androidx.lifecycle.viewModelScope
 import com.ccakir.androidplayground.base.BaseViewModel
 import com.ccakir.androidplayground.features.login.domain.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class LoginViewModel(private val loginUseCase: ILoginUseCase) :
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val loginUseCase: ILoginUseCase) :
     BaseViewModel<LoginState, LoginEvent>(LoginState()) {
 
     override fun onEvent(event: LoginEvent) {

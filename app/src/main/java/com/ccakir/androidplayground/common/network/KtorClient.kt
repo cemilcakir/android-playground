@@ -10,8 +10,11 @@ import io.ktor.client.features.logging.*
 import io.ktor.client.features.observer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class KtorClient(private val connectivityInterceptor: ConnectivityInterceptor) {
+@Singleton
+class KtorClient @Inject constructor(private val connectivityInterceptor: ConnectivityInterceptor) {
 
     companion object {
         private const val TAG = "KtorClient"

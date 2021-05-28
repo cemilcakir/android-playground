@@ -1,20 +1,20 @@
 package com.ccakir.androidplayground.features.repository.details.data
 
-import com.ccakir.androidplayground.auth.IAuthManager
-import com.ccakir.androidplayground.common.IDispatcherProvider
+import com.ccakir.androidplayground.auth.AuthManager
+import com.ccakir.androidplayground.common.DispatcherProvider
 import com.ccakir.androidplayground.features.repository.details.domain.GetCommitsStatus
-import com.ccakir.androidplayground.features.repository.details.domain.IGetCommitsUseCase
+import com.ccakir.androidplayground.features.repository.details.domain.GetCommitsUseCase
 import io.ktor.client.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
-class GetCommitsUseCase(
+class GetCommitsUseCaseImpl(
     private val networkClient: HttpClient,
-    private val dispatcherProvider: IDispatcherProvider,
-    private val authManager: IAuthManager,
+    private val dispatcherProvider: DispatcherProvider,
+    private val authManager: AuthManager,
     private val entityMapper: CommitNetworkEntityMapper
-) : IGetCommitsUseCase {
+) : GetCommitsUseCase {
 
     override fun getCommits(repositoryName: String) = flow {
         emit(GetCommitsStatus.Loading(true))

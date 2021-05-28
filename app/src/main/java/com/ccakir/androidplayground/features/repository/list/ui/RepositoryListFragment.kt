@@ -1,6 +1,7 @@
 package com.ccakir.androidplayground.features.repository.list.ui
 
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ccakir.androidplayground.base.BaseFragment
 import com.ccakir.androidplayground.common.navigateTo
@@ -9,15 +10,16 @@ import com.ccakir.androidplayground.databinding.FragmentRepositoryListBinding
 import com.ccakir.androidplayground.features.repository.list.domain.RepositoryListEffect
 import com.ccakir.androidplayground.features.repository.list.domain.RepositoryListEvent
 import com.ccakir.androidplayground.features.repository.list.domain.RepositoryListState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class RepositoryListFragment :
     BaseFragment<FragmentRepositoryListBinding, RepositoryListState, RepositoryListEvent, RepositoryListViewModel>() {
 
-    override val viewModel: RepositoryListViewModel by viewModel()
+    override val viewModel: RepositoryListViewModel by viewModels()
 
     private val adapter = RepositoryListAdapter { repository ->
         lifecycleScope.launchWhenCreated {

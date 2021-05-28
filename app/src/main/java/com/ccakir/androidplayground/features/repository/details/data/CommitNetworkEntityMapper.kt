@@ -2,8 +2,10 @@ package com.ccakir.androidplayground.features.repository.details.data
 
 import com.ccakir.androidplayground.common.EntityMapper
 import com.ccakir.androidplayground.features.repository.details.domain.CommitDomainModel
+import javax.inject.Inject
 
-class CommitNetworkEntityMapper : EntityMapper<CommitNetworkEntity, CommitDomainModel> {
+class CommitNetworkEntityMapper @Inject constructor() :
+    EntityMapper<CommitNetworkEntity, CommitDomainModel> {
 
     override fun mapFromEntity(entity: CommitNetworkEntity): CommitDomainModel {
         return CommitDomainModel(

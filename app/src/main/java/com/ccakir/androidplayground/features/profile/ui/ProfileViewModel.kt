@@ -2,15 +2,18 @@ package com.ccakir.androidplayground.features.profile.ui
 
 import androidx.lifecycle.viewModelScope
 import com.ccakir.androidplayground.base.BaseViewModel
-import com.ccakir.androidplayground.features.profile.domain.IProfileGetUsernameUseCase
-import com.ccakir.androidplayground.features.profile.domain.IProfileSignOutUseCase
 import com.ccakir.androidplayground.features.profile.domain.ProfileEvent
+import com.ccakir.androidplayground.features.profile.domain.ProfileGetUsernameUseCase
+import com.ccakir.androidplayground.features.profile.domain.ProfileSignOutUseCase
 import com.ccakir.androidplayground.features.profile.domain.ProfileState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel(
-    private val profileGetUsernameUseCase: IProfileGetUsernameUseCase,
-    private val profileSignOutUseCase: IProfileSignOutUseCase
+@HiltViewModel
+class ProfileViewModel @Inject constructor(
+    private val profileGetUsernameUseCase: ProfileGetUsernameUseCase,
+    private val profileSignOutUseCase: ProfileSignOutUseCase
 ) : BaseViewModel<ProfileState, ProfileEvent>(ProfileState()) {
 
     init {

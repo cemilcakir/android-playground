@@ -3,8 +3,12 @@ package com.ccakir.androidplayground.common.network
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ConnectivityInterceptor(private val wifiService: WifiService) : Interceptor {
+@Singleton
+class ConnectivityInterceptor @Inject constructor(private val wifiService: WifiService) :
+    Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (wifiService.isOnline()) {

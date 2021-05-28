@@ -1,5 +1,5 @@
 package com.ccakir.androidplayground.features.profile.domain
 
-interface IProfileSignOutUseCase {
+interface ProfileSignOutUseCase {
     suspend fun signOut()
 }

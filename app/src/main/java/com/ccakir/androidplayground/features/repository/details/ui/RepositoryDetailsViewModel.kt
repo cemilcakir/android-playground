@@ -3,19 +3,26 @@ package com.ccakir.androidplayground.features.repository.details.ui
 import androidx.lifecycle.viewModelScope
 import com.ccakir.androidplayground.base.BaseViewModel
 import com.ccakir.androidplayground.features.repository.details.domain.*
-import com.ccakir.androidplayground.features.repository.list.domain.RepositoryDomainModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class RepositoryDetailsViewModel(
-    repository: RepositoryDomainModel,
-    getCommitsUseCase: IGetCommitsUseCase
+@HiltViewModel
+class RepositoryDetailsViewModel @Inject constructor(
+    private val getCommitsUseCase: GetCommitsUseCase
 ) : BaseViewModel<RepositoryDetailsState, RepositoryDetailsEvent>(
     RepositoryDetailsState()
 ) {
 
-    init {
-        getCommitsUseCase.getCommits(repository.name).onEach { getCommitsStatus ->
+    override fun onEvent(event: RepositoryDetailsEvent) {
+        when (event) {
+            is RepositoryDetailsEvent.GetCommits -> getCommits(event.repository.name)
+        }
+    }
+
+    private fun getCommits(repository: String) {
+        getCommitsUseCase.getCommits(repository).onEach { getCommitsStatus ->
             when (getCommitsStatus) {
                 is GetCommitsStatus.Error -> {
                     state.value.effects.send(RepositoryDetailsEffect.ShowToast(getCommitsStatus.message))
@@ -28,8 +35,5 @@ class RepositoryDetailsViewModel(
                 }
             }
         }.launchIn(viewModelScope)
-    }
-
-    override fun onEvent(event: RepositoryDetailsEvent) {
     }
 }

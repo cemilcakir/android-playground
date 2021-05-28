@@ -1,18 +1,19 @@
 package com.ccakir.androidplayground.features.profile.ui
 
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ccakir.androidplayground.base.BaseFragment
 import com.ccakir.androidplayground.databinding.FragmentProfileBinding
 import com.ccakir.androidplayground.features.profile.domain.ProfileEvent
 import com.ccakir.androidplayground.features.profile.domain.ProfileState
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 
-
+@AndroidEntryPoint
 class ProfileFragment :
     BaseFragment<FragmentProfileBinding, ProfileState, ProfileEvent, ProfileViewModel>() {
-    override val viewModel: ProfileViewModel by inject()
+    override val viewModel: ProfileViewModel by viewModels()
 
     override fun initBinding() {
         binding = FragmentProfileBinding.inflate(layoutInflater)

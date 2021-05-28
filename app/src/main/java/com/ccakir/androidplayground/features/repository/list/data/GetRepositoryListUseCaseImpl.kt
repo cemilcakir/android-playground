@@ -1,9 +1,9 @@
 package com.ccakir.androidplayground.features.repository.list.data
 
-import com.ccakir.androidplayground.auth.IAuthManager
-import com.ccakir.androidplayground.common.IDispatcherProvider
+import com.ccakir.androidplayground.auth.AuthManager
+import com.ccakir.androidplayground.common.DispatcherProvider
 import com.ccakir.androidplayground.features.repository.list.domain.GetRepositoryListStatus
-import com.ccakir.androidplayground.features.repository.list.domain.IGetRepositoryListUseCase
+import com.ccakir.androidplayground.features.repository.list.domain.GetRepositoryListUseCase
 import io.ktor.client.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.flow.flow
@@ -11,10 +11,10 @@ import kotlinx.coroutines.withContext
 
 class GetRepositoryListUseCaseImpl(
     private val networkClient: HttpClient,
-    private val dispatcherProvider: IDispatcherProvider,
-    private val authManager: IAuthManager,
+    private val dispatcherProvider: DispatcherProvider,
+    private val authManager: AuthManager,
     private val entityMapper: RepositoryNetworkEntityMapper
-) : IGetRepositoryListUseCase {
+) : GetRepositoryListUseCase {
 
     override fun getRepositoryList() = flow {
         emit(GetRepositoryListStatus.Loading(true))

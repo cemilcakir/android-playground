@@ -1,7 +1,7 @@
 package com.ccakir.androidplayground.features.login.data
 
-import com.ccakir.androidplayground.auth.IAuthManager
-import com.ccakir.androidplayground.common.IDispatcherProvider
+import com.ccakir.androidplayground.auth.AuthManager
+import com.ccakir.androidplayground.common.DispatcherProvider
 import com.ccakir.androidplayground.features.login.domain.ILoginUseCase
 import com.ccakir.androidplayground.features.login.domain.LoginStatus
 import io.ktor.client.*
@@ -14,8 +14,8 @@ import kotlinx.coroutines.withContext
 
 class LoginUseCaseImpl(
     private val networkClient: HttpClient,
-    private val dispatcherProvider: IDispatcherProvider,
-    private val authManager: IAuthManager
+    private val dispatcherProvider: DispatcherProvider,
+    private val authManager: AuthManager
 ) : ILoginUseCase {
 
     override fun login(username: String) = flow {

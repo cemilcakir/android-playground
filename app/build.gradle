@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlinx-serialization'
     id 'androidx.navigation.safeargs'
+    id "kotlin-kapt"
+    id "dagger.hilt.android.plugin"
 }
 
 android {
@@ -64,8 +66,8 @@ dependencies {
     implementation "io.ktor:ktor-client-serialization:$ktor_version"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_version"
 
-    implementation "io.insert-koin:koin-android:$koin_version"
-    implementation "io.insert-koin:koin-ktor:$koin_version"
-
     implementation "androidx.datastore:datastore-preferences:$datastore_version"
+
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 }

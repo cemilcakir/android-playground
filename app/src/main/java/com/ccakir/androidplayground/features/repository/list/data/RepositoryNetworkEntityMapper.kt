@@ -3,8 +3,10 @@ package com.ccakir.androidplayground.features.repository.list.data
 import com.ccakir.androidplayground.R
 import com.ccakir.androidplayground.common.EntityMapper
 import com.ccakir.androidplayground.features.repository.list.domain.RepositoryDomainModel
+import javax.inject.Inject
 
-class RepositoryNetworkEntityMapper : EntityMapper<RepositoryNetworkEntity, RepositoryDomainModel> {
+class RepositoryNetworkEntityMapper @Inject constructor() :
+    EntityMapper<RepositoryNetworkEntity, RepositoryDomainModel> {
     override fun mapFromEntity(entity: RepositoryNetworkEntity): RepositoryDomainModel {
         return RepositoryDomainModel(
             name = entity.name,

@@ -8,16 +8,19 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.ccakir.androidplayground.auth.IAuthManager
+import com.ccakir.androidplayground.auth.AuthManager
 import com.ccakir.androidplayground.databinding.ActivityMainBinding
-import org.koin.android.ext.android.inject
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
-    private val authManager: IAuthManager by inject()
+    @Inject
+    lateinit var authManager: AuthManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_AndroidPlayground)

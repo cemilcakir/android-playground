@@ -1,6 +1,6 @@
 package com.ccakir.androidplayground.auth
 
-interface IAuthManager {
+interface AuthManager {
 
     suspend fun getUsername(): String?
 
