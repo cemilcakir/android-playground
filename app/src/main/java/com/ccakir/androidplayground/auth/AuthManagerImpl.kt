@@ -25,8 +25,8 @@ class AuthManagerImpl(
     override suspend fun getUsername(): String {
         return withContext(dispatcherProvider.provideIO()) {
             return@withContext context.dataStore.data.map { auth ->
-                auth[USERNAME].toString()
-            }.first()
+                auth[USERNAME]
+            }.first() ?: ""
         }
     }
 
