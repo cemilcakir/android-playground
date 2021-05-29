@@ -1,7 +1,7 @@
 package com.ccakir.androidplayground.features.repository.details.data
 
-import com.ccakir.androidplayground.common.EntityMapper
 import com.ccakir.androidplayground.features.repository.details.domain.CommitDomainModel
+import com.ccakir.common.entitymapper.EntityMapper
 import javax.inject.Inject
 
 class CommitNetworkEntityMapper @Inject constructor() :

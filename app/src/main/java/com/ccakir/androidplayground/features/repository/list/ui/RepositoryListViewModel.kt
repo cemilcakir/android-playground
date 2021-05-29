@@ -2,8 +2,8 @@ package com.ccakir.androidplayground.features.repository.list.ui
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.ccakir.androidplayground.base.BaseViewModel
 import com.ccakir.androidplayground.features.repository.list.domain.*
+import com.ccakir.architecture.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -18,8 +18,6 @@ class RepositoryListViewModel @Inject constructor(
 ) {
 
     init {
-        Log.d("RepositoryListViewModel", "init")
-
         getRepositoryListUseCase.getRepositoryList().onEach { getRepositoryListStatus ->
             when (getRepositoryListStatus) {
                 is GetRepositoryListStatus.Error -> {

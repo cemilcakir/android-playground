@@ -8,8 +8,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.ccakir.androidplayground.auth.AuthManager
 import com.ccakir.androidplayground.databinding.ActivityMainBinding
+import com.ccakir.authentication.AuthManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

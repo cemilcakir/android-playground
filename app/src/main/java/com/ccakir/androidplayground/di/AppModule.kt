@@ -1,11 +1,13 @@
 package com.ccakir.androidplayground.di
 
 import android.content.Context
-import com.ccakir.androidplayground.auth.AuthManager
-import com.ccakir.androidplayground.auth.AuthManagerImpl
-import com.ccakir.androidplayground.common.DispatcherProvider
-import com.ccakir.androidplayground.common.DispatcherProviderImpl
-import com.ccakir.androidplayground.common.network.KtorClient
+import com.ccakir.authentication.AuthManager
+import com.ccakir.authentication.AuthManagerImpl
+import com.ccakir.common.dispatchprovider.DispatcherProvider
+import com.ccakir.common.dispatchprovider.DispatcherProviderImpl
+import com.ccakir.network.ConnectivityInterceptor
+import com.ccakir.network.KtorClient
+import com.ccakir.network.WifiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +30,21 @@ object AppModule {
         dispatcherProvider: DispatcherProvider
     ): AuthManager {
         return AuthManagerImpl(context, dispatcherProvider)
+    }
+
+    @Provides
+    fun provideWifiService(@ApplicationContext context: Context): WifiService {
+        return WifiService(context)
+    }
+
+    @Provides
+    fun provideConnectivityInterceptor(wifiService: WifiService): ConnectivityInterceptor {
+        return ConnectivityInterceptor(wifiService)
+    }
+
+    @Provides
+    fun provideKtorClient(connectivityInterceptor: ConnectivityInterceptor): KtorClient {
+        return KtorClient(connectivityInterceptor)
     }
 
     @Provides

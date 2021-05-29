@@ -1,6 +1,6 @@
 package com.ccakir.androidplayground.features.login.domain
 
-import com.ccakir.androidplayground.arch.UIEvent
+import com.ccakir.architecture.arch.UIEvent
 
 sealed class LoginEvent : UIEvent {
     object Login : LoginEvent()

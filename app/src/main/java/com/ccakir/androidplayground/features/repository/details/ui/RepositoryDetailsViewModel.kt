@@ -1,8 +1,8 @@
 package com.ccakir.androidplayground.features.repository.details.ui
 
 import androidx.lifecycle.viewModelScope
-import com.ccakir.androidplayground.base.BaseViewModel
 import com.ccakir.androidplayground.features.repository.details.domain.*
+import com.ccakir.architecture.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach

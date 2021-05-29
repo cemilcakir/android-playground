@@ -2,11 +2,11 @@ package com.ccakir.androidplayground.features.profile.ui
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.ccakir.androidplayground.base.BaseFragment
 import com.ccakir.androidplayground.databinding.FragmentProfileBinding
 import com.ccakir.androidplayground.features.profile.domain.ProfileEvent
 import com.ccakir.androidplayground.features.profile.domain.ProfileState
+import com.ccakir.architecture.base.BaseFragment
+import com.ccakir.base.extensions.navigateTo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,7 +31,7 @@ class ProfileFragment :
         binding.txtUsername.text = state.username
 
         if (state.navigateToLogin)
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+            navigateTo(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
     }
 
 }

@@ -1,9 +1,9 @@
 package com.ccakir.androidplayground.features.repository.list.data
 
-import com.ccakir.androidplayground.auth.AuthManager
-import com.ccakir.androidplayground.common.DispatcherProvider
 import com.ccakir.androidplayground.features.repository.list.domain.GetRepositoryListStatus
 import com.ccakir.androidplayground.features.repository.list.domain.GetRepositoryListUseCase
+import com.ccakir.authentication.AuthManager
+import com.ccakir.common.dispatchprovider.DispatcherProvider
 import io.ktor.client.*
 import io.ktor.client.request.*
 import kotlinx.coroutines.flow.flow

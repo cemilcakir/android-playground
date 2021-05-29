@@ -4,13 +4,13 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.ccakir.androidplayground.base.BaseFragment
-import com.ccakir.androidplayground.common.navigateTo
-import com.ccakir.androidplayground.common.showToast
 import com.ccakir.androidplayground.databinding.FragmentLoginBinding
 import com.ccakir.androidplayground.features.login.domain.LoginEffect
 import com.ccakir.androidplayground.features.login.domain.LoginEvent
 import com.ccakir.androidplayground.features.login.domain.LoginState
+import com.ccakir.architecture.base.BaseFragment
+import com.ccakir.base.extensions.navigateTo
+import com.ccakir.base.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn

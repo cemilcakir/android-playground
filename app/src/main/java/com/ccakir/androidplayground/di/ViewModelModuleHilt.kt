@@ -1,7 +1,5 @@
 package com.ccakir.androidplayground.di
 
-import com.ccakir.androidplayground.auth.AuthManager
-import com.ccakir.androidplayground.common.DispatcherProvider
 import com.ccakir.androidplayground.features.login.data.LoginUseCaseImpl
 import com.ccakir.androidplayground.features.login.domain.ILoginUseCase
 import com.ccakir.androidplayground.features.profile.data.ProfileGetUsernameUseCaseImpl
@@ -14,6 +12,8 @@ import com.ccakir.androidplayground.features.repository.details.domain.GetCommit
 import com.ccakir.androidplayground.features.repository.list.data.GetRepositoryListUseCaseImpl
 import com.ccakir.androidplayground.features.repository.list.data.RepositoryNetworkEntityMapper
 import com.ccakir.androidplayground.features.repository.list.domain.GetRepositoryListUseCase
+import com.ccakir.authentication.AuthManager
+import com.ccakir.common.dispatchprovider.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

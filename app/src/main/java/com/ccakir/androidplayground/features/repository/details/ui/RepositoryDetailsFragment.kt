@@ -6,19 +6,19 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import com.ccakir.androidplayground.base.BaseFragment
-import com.ccakir.androidplayground.common.showToast
 import com.ccakir.androidplayground.databinding.FragmentRepositoryDetailsBinding
 import com.ccakir.androidplayground.features.repository.details.domain.RepositoryDetailsEffect
 import com.ccakir.androidplayground.features.repository.details.domain.RepositoryDetailsEvent
 import com.ccakir.androidplayground.features.repository.details.domain.RepositoryDetailsState
+import com.ccakir.architecture.base.BaseFragment
+import com.ccakir.base.extensions.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
-class RepositoryDetailsFragment() :
+class RepositoryDetailsFragment :
     BaseFragment<FragmentRepositoryDetailsBinding, RepositoryDetailsState, RepositoryDetailsEvent, RepositoryDetailsViewModel>() {
 
     private val args: RepositoryDetailsFragmentArgs by navArgs()

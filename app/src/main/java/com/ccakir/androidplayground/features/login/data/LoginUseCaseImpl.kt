@@ -1,9 +1,9 @@
 package com.ccakir.androidplayground.features.login.data
 
-import com.ccakir.androidplayground.auth.AuthManager
-import com.ccakir.androidplayground.common.DispatcherProvider
 import com.ccakir.androidplayground.features.login.domain.ILoginUseCase
 import com.ccakir.androidplayground.features.login.domain.LoginStatus
+import com.ccakir.authentication.AuthManager
+import com.ccakir.common.dispatchprovider.DispatcherProvider
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
