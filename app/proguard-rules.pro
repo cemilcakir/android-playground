@@ -19,3 +19,24 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep public class com.ccakir.androidplayground.features.repository.list.domain.RepositoryDomainModel
+-keep public class com.ccakir.androidplayground.features.repository.list.data.RepositoryNetworkEntity
+
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.AnnotationsKt
+
+-keepclassmembers class kotlinx.serialization.json.** {
+    *** Companion;
+}
+-keepclasseswithmembers class kotlinx.serialization.json.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
+
+-keep,includedescriptorclasses class com.ccakir.androidplayground.**$$serializer { *; }
+-keepclassmembers class com.ccakir.androidplayground.** {
+    *** Companion;
+}
+-keepclasseswithmembers class com.ccakir.androidplayground.** {
+    kotlinx.serialization.KSerializer serializer(...);
+}
