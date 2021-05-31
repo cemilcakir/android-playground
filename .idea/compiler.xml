@@ -6,6 +6,9 @@
       <module name="AndroidPlayground.architecture" target="11" />
       <module name="AndroidPlayground.authentication" target="11" />
       <module name="AndroidPlayground.base" target="11" />
+      <module name="AndroidPlayground.feature_login" target="11" />
+      <module name="AndroidPlayground.feature_profile" target="11" />
+      <module name="AndroidPlayground.feature_repository" target="11" />
       <module name="AndroidPlayground.network" target="11" />
     </bytecodeTargetLevel>
   </component>

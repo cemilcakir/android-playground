@@ -1,19 +1,16 @@
 package com.ccakir.androidplayground.di
 
-import com.ccakir.androidplayground.features.login.data.LoginUseCaseImpl
-import com.ccakir.androidplayground.features.login.domain.ILoginUseCase
-import com.ccakir.androidplayground.features.profile.data.ProfileGetUsernameUseCaseImpl
-import com.ccakir.androidplayground.features.profile.data.ProfileSignOutUseCaseImpl
-import com.ccakir.androidplayground.features.profile.domain.ProfileGetUsernameUseCase
-import com.ccakir.androidplayground.features.profile.domain.ProfileSignOutUseCase
-import com.ccakir.androidplayground.features.repository.details.data.CommitNetworkEntityMapper
-import com.ccakir.androidplayground.features.repository.details.data.GetCommitsUseCaseImpl
-import com.ccakir.androidplayground.features.repository.details.domain.GetCommitsUseCase
-import com.ccakir.androidplayground.features.repository.list.data.GetRepositoryListUseCaseImpl
-import com.ccakir.androidplayground.features.repository.list.data.RepositoryNetworkEntityMapper
-import com.ccakir.androidplayground.features.repository.list.domain.GetRepositoryListUseCase
 import com.ccakir.authentication.AuthManager
 import com.ccakir.common.dispatchprovider.DispatcherProvider
+import com.ccakir.feature_login.data.LoginUseCaseImpl
+import com.ccakir.feature_login.domain.ILoginUseCase
+import com.ccakir.feature_profile.domain.ProfileGetUsernameUseCase
+import com.ccakir.feature_profile.domain.ProfileSignOutUseCase
+import com.ccakir.feature_repository.details.data.GetCommitsUseCaseImpl
+import com.ccakir.feature_repository.details.domain.GetCommitsUseCase
+import com.ccakir.feature_repository.list.data.GetRepositoryListUseCaseImpl
+import com.ccakir.feature_repository.list.data.RepositoryNetworkEntityMapper
+import com.ccakir.feature_repository.list.domain.GetRepositoryListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,17 +27,21 @@ object ViewModelModuleHilt {
         dispatcherProvider: DispatcherProvider,
         authManager: AuthManager
     ): ILoginUseCase {
-        return LoginUseCaseImpl(httpClient, dispatcherProvider, authManager)
+        return LoginUseCaseImpl(
+            httpClient,
+            dispatcherProvider,
+            authManager
+        )
     }
 
     @Provides
     fun provideProfileGetUsernameUseCase(authManager: AuthManager): ProfileGetUsernameUseCase {
-        return ProfileGetUsernameUseCaseImpl(authManager)
+        return com.ccakir.feature_profile.data.ProfileGetUsernameUseCaseImpl(authManager)
     }
 
     @Provides
     fun provideProfileSignOutGetUsernameUseCase(authManager: AuthManager): ProfileSignOutUseCase {
-        return ProfileSignOutUseCaseImpl(authManager)
+        return com.ccakir.feature_profile.data.ProfileSignOutUseCaseImpl(authManager)
     }
 
     @Provides
@@ -63,7 +64,7 @@ object ViewModelModuleHilt {
         httpClient: HttpClient,
         dispatcherProvider: DispatcherProvider,
         authManager: AuthManager,
-        commitNetworkEntityMapper: CommitNetworkEntityMapper
+        commitNetworkEntityMapper: com.ccakir.feature_repository.details.data.CommitNetworkEntityMapper
     ): GetCommitsUseCase {
         return GetCommitsUseCaseImpl(
             httpClient,

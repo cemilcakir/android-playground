@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun getStartDestination(): Int {
         return if (!authManager.getUsername().isNullOrBlank()) {
-            R.id.repositoryListFragment
+            R.id.nav_graph_repository
         } else
-            R.id.loginFragment
+            R.id.nav_graph_login
     }
 }

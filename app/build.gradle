@@ -44,6 +44,9 @@ android {
 dependencies {
 
     implementation project(path: ':base')
+    implementation project(path: ':feature_login')
+    implementation project(path: ':feature_profile')
+    implementation project(path: ':feature_repository')
 
     implementation "androidx.multidex:multidex:$multidex_version"
 

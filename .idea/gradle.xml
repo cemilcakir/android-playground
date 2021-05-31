@@ -15,6 +15,9 @@
             <option value="$PROJECT_DIR$/authentication" />
             <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/feature_login" />
+            <option value="$PROJECT_DIR$/feature_profile" />
+            <option value="$PROJECT_DIR$/feature_repository" />
             <option value="$PROJECT_DIR$/network" />
           </set>
         </option>

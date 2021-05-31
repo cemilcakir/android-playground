@@ -1,0 +1,28 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_repository"
+    app:startDestination="@id/repositoryListFragment">
+
+    <fragment
+        android:id="@+id/repositoryListFragment"
+        android:name="com.ccakir.feature_repository.list.ui.RepositoryListFragment"
+        android:label="@string/repositories"
+        tools:layout="@layout/fragment_repository_list">
+
+        <action
+            android:id="@+id/action_repositoryListFragment_to_repositoryDetailsFragment"
+            app:destination="@id/repositoryDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/repositoryDetailsFragment"
+        android:name="com.ccakir.feature_repository.details.ui.RepositoryDetailsFragment"
+        android:label="@string/details"
+        tools:layout="@layout/fragment_repository_details">
+
+        <argument
+            android:name="repository"
+            app:argType="com.ccakir.feature_repository.list.domain.RepositoryDomainModel" />
+    </fragment>
+</navigation>
