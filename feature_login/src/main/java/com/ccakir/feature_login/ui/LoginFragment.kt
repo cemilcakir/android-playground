@@ -1,10 +1,12 @@
 package com.ccakir.feature_login.ui
 
+import android.net.Uri
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ccakir.architecture.base.BaseFragment
+import com.ccakir.base.extensions.navigateTo
 import com.ccakir.base.extensions.showToast
 import com.ccakir.feature_login.databinding.FragmentLoginBinding
 import com.ccakir.feature_login.domain.LoginEffect
@@ -55,6 +57,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginState, LoginEvent,
 
     private fun onLoginSuccess() {
         showToast("Login success")
-        //navigateTo(LoginFragmentDirections.actionLoginFragmentToRepositoryListFragment())
+
+        val uri = Uri.parse("myApp://repositoryList")
+        navigateTo(uri, true)
     }
 }

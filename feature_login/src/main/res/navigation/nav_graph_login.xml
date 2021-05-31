@@ -11,6 +11,8 @@
         android:label="@string/login"
         tools:layout="@layout/fragment_login">
 
+        <deepLink app:uri="myApp://login" />
+
     </fragment>
 
 </navigation>

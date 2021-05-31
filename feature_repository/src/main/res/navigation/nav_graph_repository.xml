@@ -10,6 +10,8 @@
         android:label="@string/repositories"
         tools:layout="@layout/fragment_repository_list">
 
+        <deepLink app:uri="myApp://repositoryList" />
+
         <action
             android:id="@+id/action_repositoryListFragment_to_repositoryDetailsFragment"
             app:destination="@id/repositoryDetailsFragment" />

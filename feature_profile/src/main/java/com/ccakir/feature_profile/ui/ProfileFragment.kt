@@ -1,8 +1,10 @@
 package com.ccakir.feature_profile.ui
 
+import android.net.Uri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.ccakir.architecture.base.BaseFragment
+import com.ccakir.base.extensions.navigateTo
 import com.ccakir.feature_profile.databinding.FragmentProfileBinding
 import com.ccakir.feature_profile.domain.ProfileEvent
 import com.ccakir.feature_profile.domain.ProfileState
@@ -29,8 +31,10 @@ class ProfileFragment :
     override fun renderState(state: ProfileState) {
         binding.txtUsername.text = state.username
 
-        //if (state.navigateToLogin)
-        //navigateTo(ProfileFragmentDirections.actionProfileFragmentToLoginFragment())
+        if (state.navigateToLogin) {
+            val uri = Uri.parse("myApp://login")
+            navigateTo(uri, true)
+        }
     }
 
 }
