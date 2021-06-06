@@ -1,6 +1,9 @@
-package com.ccakir.base.extensions.di
+package com.ccakir.base.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.ccakir.authentication.AuthManager
 import com.ccakir.authentication.AuthManagerImpl
 import com.ccakir.common.dispatchprovider.DispatcherProvider
@@ -19,6 +22,8 @@ import io.ktor.client.*
 @InstallIn(SingletonComponent::class)
 object BaseAppModule {
 
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth")
+
     @Provides
     fun provideDispatcherProvider(): DispatcherProvider {
         return DispatcherProviderImpl()
@@ -29,7 +34,7 @@ object BaseAppModule {
         @ApplicationContext context: Context,
         dispatcherProvider: DispatcherProvider
     ): AuthManager {
-        return AuthManagerImpl(context, dispatcherProvider)
+        return AuthManagerImpl(context, dispatcherProvider, context.dataStore)
     }
 
     @Provides
