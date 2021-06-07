@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginUseCase: ILoginUseCase) :
+class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) :
     BaseViewModel<LoginState, LoginEvent>(LoginState()) {
 
     override fun onEvent(event: LoginEvent) {

@@ -1,6 +1,6 @@
 package com.ccakir.feature_login.data
 
-import com.ccakir.feature_login.domain.ILoginUseCase
+import com.ccakir.feature_login.domain.LoginUseCase
 import com.ccakir.feature_login.domain.LoginStatus
 import com.ccakir.authentication.AuthManager
 import com.ccakir.common.dispatchprovider.DispatcherProvider
@@ -16,7 +16,7 @@ class LoginUseCaseImpl(
     private val networkClient: HttpClient,
     private val dispatcherProvider: DispatcherProvider,
     private val authManager: AuthManager
-) : ILoginUseCase {
+) : LoginUseCase {
 
     override fun login(username: String) = flow {
         emit(LoginStatus.Loading(true))

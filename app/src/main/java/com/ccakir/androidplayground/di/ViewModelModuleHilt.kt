@@ -3,7 +3,7 @@ package com.ccakir.androidplayground.di
 import com.ccakir.authentication.AuthManager
 import com.ccakir.common.dispatchprovider.DispatcherProvider
 import com.ccakir.feature_login.data.LoginUseCaseImpl
-import com.ccakir.feature_login.domain.ILoginUseCase
+import com.ccakir.feature_login.domain.LoginUseCase
 import com.ccakir.feature_profile.domain.ProfileGetUsernameUseCase
 import com.ccakir.feature_profile.domain.ProfileSignOutUseCase
 import com.ccakir.feature_repository.details.data.GetCommitsUseCaseImpl
@@ -26,7 +26,7 @@ object ViewModelModuleHilt {
         httpClient: HttpClient,
         dispatcherProvider: DispatcherProvider,
         authManager: AuthManager
-    ): ILoginUseCase {
+    ): LoginUseCase {
         return LoginUseCaseImpl(
             httpClient,
             dispatcherProvider,

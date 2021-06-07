@@ -2,6 +2,6 @@ package com.ccakir.feature_login.domain
 
 import kotlinx.coroutines.flow.Flow
 
-interface ILoginUseCase {
+interface LoginUseCase {
     fun login(username: String): Flow<LoginStatus>
 }
