@@ -1,7 +1,8 @@
-package com.ccakir.feature_repository.list.data
+package com.ccakir.feature_repository.details.data
 
 import app.cash.turbine.test
-import com.ccakir.feature_repository.list.domain.GetRepositoryListStatus
+import com.ccakir.feature_repository.details.domain.GetCommitsStatus
+import com.ccakir.feature_repository.list.data.fullUrl
 import com.ccakir.feature_repository.shared.AuthManagerTD
 import com.ccakir.feature_repository.shared.DispatcherProviderTD
 import io.ktor.client.*
@@ -23,13 +24,9 @@ import org.junit.Before
 import org.junit.Test
 import kotlin.time.ExperimentalTime
 
-val Url.hostWithPortIfRequired: String get() = if (port == protocol.defaultPort) host else hostWithPort
-val Url.fullUrl: String get() = "${protocol.name}://$hostWithPortIfRequired$fullPath"
+class GetCommitsUseCaseImplTest {
 
-@ExperimentalCoroutinesApi
-class GetRepositoryListUseCaseImplTest {
-
-    private lateinit var getRepositoryListUseCase: GetRepositoryListUseCaseImpl
+    private lateinit var getCommitsUseCase: GetCommitsUseCaseImpl
 
     private val httpClient = HttpClient(MockEngine) {
         install(DefaultRequest) {
@@ -63,32 +60,29 @@ class GetRepositoryListUseCaseImplTest {
         }
     }
 
-
-
-    private val dispatcherProvider = DispatcherProviderTD()
-
     private val authManager = AuthManagerTD()
 
+    @ExperimentalCoroutinesApi
     @Before
     fun setup() {
-        getRepositoryListUseCase = GetRepositoryListUseCaseImpl(
+        getCommitsUseCase = GetCommitsUseCaseImpl(
             httpClient,
-            dispatcherProvider,
+            DispatcherProviderTD(),
             authManager,
-            RepositoryNetworkEntityMapper()
+            CommitNetworkEntityMapper()
         )
     }
 
     @Test
     fun `first emitted value should be Loading(true)`() = runBlocking {
-        val firstStatus = getRepositoryListUseCase.getRepositoryList().first()
-        assertEquals(GetRepositoryListStatus.Loading(true), firstStatus)
+        val firstStatus = getCommitsUseCase.getCommits(REPOSITORY_NAME).first()
+        assertEquals(GetCommitsStatus.Loading(true), firstStatus)
     }
 
     @Test
     fun `last emitted value should be Loading(false)`() = runBlocking {
-        val lastStatus = getRepositoryListUseCase.getRepositoryList().last()
-        assertEquals(GetRepositoryListStatus.Loading(false), lastStatus)
+        val lastStatus = getCommitsUseCase.getCommits(REPOSITORY_NAME).last()
+        assertEquals(GetCommitsStatus.Loading(false), lastStatus)
     }
 
     @ExperimentalTime
@@ -96,10 +90,10 @@ class GetRepositoryListUseCaseImplTest {
     fun `when an exception thrown emitted value should be Error`() = runBlocking {
         authManager.setUsername(USERNAME_FAILURE)
 
-        getRepositoryListUseCase.getRepositoryList().test {
+        getCommitsUseCase.getCommits(REPOSITORY_NAME).test {
             val loadingTrue = expectItem()
             val error = expectItem()
-            assertTrue(error is GetRepositoryListStatus.Error)
+            assertTrue(error is GetCommitsStatus.Error)
             cancelAndIgnoreRemainingEvents()
         }
     }
@@ -108,21 +102,22 @@ class GetRepositoryListUseCaseImplTest {
     @Test
     fun `after everything went ok emitted value should be Success`() = runBlocking {
         authManager.setUsername(USERNAME_SUCCESS)
-        getRepositoryListUseCase.getRepositoryList().test {
+        getCommitsUseCase.getCommits(REPOSITORY_NAME).test {
             val loadingTrue = expectItem()
             val success = expectItem()
-            assertTrue(success is GetRepositoryListStatus.Success)
+            assertTrue(success is GetCommitsStatus.Success)
             cancelAndIgnoreRemainingEvents()
         }
     }
 
     companion object {
+        private const val REPOSITORY_NAME = "android-playground"
         private const val USERNAME = "cemilcakir"
         private const val USERNAME_SUCCESS = "cemilcakir_SUCCESS"
         private const val USERNAME_FAILURE = "${USERNAME}_FAILURE"
         private val RESPONSE = Json.encodeToString(
             listOf(
-                RepositoryNetworkEntity("name", "desc", "Kotlin")
+                CommitNetworkEntity(Commit("commit message", Author("name", "2021")))
             )
         )
     }

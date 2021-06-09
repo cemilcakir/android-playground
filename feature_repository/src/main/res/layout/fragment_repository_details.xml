@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.repository.details.ui.RepositoryDetailsFragment">
+    tools:context=".details.ui.RepositoryDetailsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rclCommitList"
